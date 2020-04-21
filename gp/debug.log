@@ -1,0 +1,22 @@
+[0416/105747.290:ERROR:process_reader_win.cc(123)] NtOpenThread: {无法访问} 过程已请求访问一对象，但未给访问权限。 (0xc0000022)
+[0416/105747.306:ERROR:exception_snapshot_win.cc(98)] thread ID 16360 not found in process
+[0416/105747.352:ERROR:process_reader_win.cc(123)] NtOpenThread: {无法访问} 过程已请求访问一对象，但未给访问权限。 (0xc0000022)
+[0416/105747.352:ERROR:exception_snapshot_win.cc(98)] thread ID 20628 not found in process
+[0416/120141.700:ERROR:process_reader_win.cc(123)] NtOpenThread: {无法访问} 过程已请求访问一对象，但未给访问权限。 (0xc0000022)
+[0416/120141.716:ERROR:exception_snapshot_win.cc(98)] thread ID 4460 not found in process
+[0416/120141.773:ERROR:process_reader_win.cc(123)] NtOpenThread: {无法访问} 过程已请求访问一对象，但未给访问权限。 (0xc0000022)
+[0416/120141.773:ERROR:exception_snapshot_win.cc(98)] thread ID 14644 not found in process
+[0416/120306.928:ERROR:process_reader_win.cc(123)] NtOpenThread: {无法访问} 过程已请求访问一对象，但未给访问权限。 (0xc0000022)
+[0416/120306.928:ERROR:exception_snapshot_win.cc(98)] thread ID 20572 not found in process
+[0416/120306.959:ERROR:process_reader_win.cc(123)] NtOpenThread: {无法访问} 过程已请求访问一对象，但未给访问权限。 (0xc0000022)
+[0416/120306.959:ERROR:exception_snapshot_win.cc(98)] thread ID 800 not found in process
+[0416/120359.272:ERROR:process_reader_win.cc(123)] NtOpenThread: {无法访问} 过程已请求访问一对象，但未给访问权限。 (0xc0000022)
+[0416/120359.272:ERROR:exception_snapshot_win.cc(98)] thread ID 5412 not found in process
+[0416/120359.318:ERROR:process_reader_win.cc(123)] NtOpenThread: {无法访问} 过程已请求访问一对象，但未给访问权限。 (0xc0000022)
+[0416/120359.318:ERROR:exception_snapshot_win.cc(98)] thread ID 9964 not found in process
+[0417/001348.589:ERROR:process_reader_win.cc(151)] SuspendThread: 拒绝访问。 (0x5)
+[0417/001348.738:ERROR:process_reader_win.cc(151)] SuspendThread: 拒绝访问。 (0x5)
+[0417/001348.738:ERROR:process_reader_win.cc(123)] NtOpenThread: {无法访问} 过程已请求访问一对象，但未给访问权限。 (0xc0000022)
+[0417/001348.739:ERROR:exception_snapshot_win.cc(98)] thread ID 8408 not found in process
+[0417/001349.076:ERROR:process_reader_win.cc(123)] NtOpenThread: {无法访问} 过程已请求访问一对象，但未给访问权限。 (0xc0000022)
+[0417/001349.076:ERROR:exception_snapshot_win.cc(98)] thread ID 19724 not found in process
