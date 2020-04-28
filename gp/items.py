@@ -10,3 +10,4 @@ import scrapy
 
 class gpItem(scrapy.Item):
 	reviews = scrapy.Field() #评论内容
+	db_name = scrapy.Field() #评论内容

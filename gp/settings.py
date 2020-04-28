@@ -10,6 +10,15 @@
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
 BOT_NAME = 'gp'
+'''
+MONGO_HOST ="0.0.0.0"
+MONGO_PORT =27017
+MONGO_DB ="Spider"
+MONGO_COLL = "reviews"
+
+#MONGO_USER = "7630gp"
+#MONGO_PSW = "123456"
+'''
 
 SPIDER_MODULES = ['gp.spiders']
 NEWSPIDER_MODULE = 'gp.spiders'
@@ -27,7 +36,7 @@ DOWNLOADER_MIDDLEWARES = {
 #USER_AGENT = 'gp (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = False
+ROBOTSTXT_OBEY = True
 
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)

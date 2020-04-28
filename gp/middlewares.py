@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 # Define here the models for your spider middleware
-#
+#    def __init__(self):
+
 # See documentation in:
 # https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
@@ -11,12 +12,14 @@ from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 from gp.configs import *
 import time
+import datetime
+import pymongo
 
 class ChromeDownloaderMiddleware(object):
     """docstring for ChromeDownloaderMiddleware"""
     def __init__(self):
-        options = webdriver.ChromeOptions()
-        options.add_argument('--headless') #设置为无界面
+        options=webdriver.ChromeOptions()
+        #options.add_argument('--headless') #设置为无界面
         if CHROME_PATH:
             options.binary_location = CHROME_PATH
         if CHROME_DRIVER_PATH:
@@ -30,19 +33,52 @@ class ChromeDownloaderMiddleware(object):
     def process_request(self,request,spider):
         try:
             print('chrome driver begin...')
-            
-            #self.driver.set_window_size(1000,120000)
+            url_check=request.url
+            url_check=url_check.split(".")
+            #确定当前爬取的时哪一个app
+            for item in url_check:
+                if "zoom" == item:
+                    db_name="Zoom"
+                    break
+                elif "alibaba" == item:
+                    db_name="Ding_Talk"
+                    break
+                elif "apps" == item:
+                    db_name="Google_Meet"
+                    break
+            #连接数据，查看最新的日期是何时
+            client = pymongo.MongoClient("mongodb://7630:ais7630@localhost:27017/")
+            db = client["7630_DB"]
+            coll =db[db_name]  
+            doc=coll.find()
+            print(type(doc))
+            for item in doc:
+                obj=item
+                break
+            #如果数据库为空，则爬取很长时间
+            if doc.count()==0:
+                crawl_loop=300
+            else:
+                latest = obj.get("time")
+                latest =latest.split("/")
+                now_time=time.localtime()
+                #计算出数据库已有数据和当前日期的差值
+                cp_day = (now_time.tm_mon-int(latest[1]))*10+(now_time.tm_mday-int(latest[2]))
+                crawl_loop = cp_day*2
+
+
             self.driver.get(request.url) #获取页面连接内容
-            
+            time.sleep(2)
             newest = self.driver.find_element_by_xpath("//*[@id='fcxH9b']/div[4]/c-wiz/div/div[2]/div/div[1]/div/div/div[1]/div[2]/c-wiz/div[1]/div/div[1]/div[1]/div[3]").click()
             time.sleep(5)
             newest = self.driver.find_element_by_xpath("//*[@id='fcxH9b']/div[4]/c-wiz/div/div[2]/div/div[1]/div/div/div[1]/div[2]/c-wiz/div[1]/div/div[2]/div[1]").click()
 
-            for i in range(0,25):
+            #根据设定的爬取时间，通过拉动滚动条 和 点击 show more 爬取页面
+            for i in range(0,crawl_loop):
                 self.driver.execute_script("window.scrollBy(0,2000)")
                 #time.sleep(1)
                 self.driver.execute_script("window.scrollBy(0,-1000)")
-                time.sleep(1)
+                time.sleep(2)
             #button = self.driver.find_element_by_xpath("//*[@id='fcxH9b']/div[4]/c-wiz/div/div[2]/div/div[1]/div/div/div[1]/div[2]/div[2]/div").click()
                 try:
                     button = self.driver.find_element_by_xpath("//*[@id='fcxH9b']/div[4]/c-wiz/div/div[2]/div/div[1]/div/div/div[1]/div[2]/div[2]/div").click()
@@ -50,15 +86,6 @@ class ChromeDownloaderMiddleware(object):
                 except:
                     pass
 
-            '''//*[@id="fcxH9b"]/div[4]/c-wiz/div/div[2]/div/div[1]/div/div/div[1]/div[2]/div[2]/div/div[2]
-                try:
-                    
-                    button = self.driver.find_element_by_xpath("//div[@id='fcxH9b']/div[4]/c-wiz/div/div[2]/div/div[1]/div/div/div[1]/div[2]/div[2]/div/span/span")
-                    print(button.text())
-                    button.click()
-                except:
-                    pass
-            '''
             return HtmlResponse(url = request.url,body=self.driver.page_source,request=request,encoding='utf-8',status=200)
             #返回html数据
         except TimeoutException:

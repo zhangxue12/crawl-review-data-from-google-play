@@ -15,7 +15,19 @@ class GooglePlayCrawl(scrapy.Spider):
 		#self.start_urls = ["https://play.google.com/store/apps/details?id=us.zoom.videomeetings&showAllReviews=true&hl=en"]
 	def parse(self,response):
 		print('Begin crawl',response.url)
-
+		url_check=response.url
+		url_check=url_check.split(".")
+		#确定当前爬取的时哪一个app
+		for item in url_check:
+			if "zoom" == item:
+				db_name="Zoom"
+				break
+			elif "alibaba" == item:
+				db_name="Ding_Talk"
+				break
+			elif "apps" == item:
+				db_name="Google_Meet"
+				break
 		content = response.xpath("//div[@class='LXrl4c']")
 		exception_count = 0
 		item = gpItem()
@@ -43,12 +55,15 @@ class GooglePlayCrawl(scrapy.Spider):
 				else:
 					rating_label ="-1"
 
-				month=["January","February","March","April","May","June","July","Auguest","September","October","November","December"]
+				month=["January","February","March","April","May","June","July","August","September","October","November","December"]
 				re_time = re_time.split(" ")
+				print(re_time)
 				if re_time[0] in month:
 					month_t = month.index(re_time[0])+1
+					print(month_t)
 				review_time = str(re_time[2])+"/"+str(month_t)+"/"+str(re_time[1])
 				review_time = review_time[:-1]
+				print(review_time)
 				#print(type(review_time ),review_time)
 				# filter reviews with Chinese or other language or expression
 				flag = 0
@@ -72,6 +87,7 @@ class GooglePlayCrawl(scrapy.Spider):
 				else: 
 					continue
 			item["reviews"] = content_list
+			item["db_name"] =db_name
 			yield item
 			print("抓取结束")
 				
