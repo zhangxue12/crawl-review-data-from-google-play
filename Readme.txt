@@ -8,6 +8,6 @@ scrapy crawl gp -a urls="https://play.google.com/store/apps/details?id=com.aliba
 (3) Hangouts Meet
 scrapy crawl gp -a urls="https://play.google.com/store/apps/details?id=com.google.android.apps.meetings&showAllReviews=true&hl=en"
 
-Most important, you need use goole browser and goole driver, and modify the address of them in config.py.
+Most important, you need use google browser and google driver, and modify the address of them in config.py.
 The last one, this project use mongodb to store data, and you need to change the configure of mongodb in the related files.
 
